@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  postgres_db:
+  db:
     image: postgres:16-alpine
     container_name: parking_bd_container
     restart: always
@@ -12,7 +12,26 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql
+
+  parkingfinderbackend:
+    image: parkingfinderbackend:dev
+    container_name: parking_finder_backend-dev
+    build:
+      context: .
+      dockerfile: ParkingFinder/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      # Path inside the container; the host credentials file is bind-mounted read-only below.
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=parking_db;Username=postgres;Password=183649
 
 volumes:
   pgdata:

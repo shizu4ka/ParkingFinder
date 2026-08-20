@@ -8,6 +8,9 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ParkingFinder/ParkingFinder.csproj", "ParkingFinder/"]
+COPY ["ParkingFinder.Application/ParkingFinder.Application.csproj", "ParkingFinder.Application/"]
+COPY ["ParkingFinder.Domain/ParkingFinder.Domain.csproj", "ParkingFinder.Domain/"]
+COPY ["ParkingFinder.Infrastructure/ParkingFinder.Infrastructure.csproj", "ParkingFinder.Infrastructure/"]
 RUN dotnet restore "ParkingFinder/ParkingFinder.csproj"
 COPY . .
 WORKDIR "/src/ParkingFinder"
