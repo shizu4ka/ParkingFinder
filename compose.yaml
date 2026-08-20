@@ -1,0 +1,8 @@
+# Use environment-specific compose files:
+# Development: docker compose -f compose.dev.yaml up
+# Staging:     docker compose -f compose.staging.yaml up
+# Production:  docker compose -f compose.prod.yaml up
+
+# Defaulting to development
+include:
+  - path: compose.dev.yaml

@@ -1,22 +1,25 @@
-version: '3.8'
-
 services:
   db:
-    image: postgres:16-alpine
-    container_name: parking_bd_container
+    image: postgres:18-alpine
+    container_name: parkingpostgres-dev
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 183649
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: parking_db
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
       - pgdata:/var/lib/postgresql
-
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      
   parkingfinderbackend:
     image: parkingfinderbackend:dev
-    container_name: parking_finder_backend-dev
+    container_name: parkingfinderbackend-dev
     build:
       context: .
       dockerfile: ParkingFinder/Dockerfile
@@ -31,7 +34,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       # Path inside the container; the host credentials file is bind-mounted read-only below.
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=parking_db;Username=postgres;Password=183649
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=parking_db;Username=postgres;Password=postgres
 
 volumes:
   pgdata:
