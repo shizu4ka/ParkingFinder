@@ -16,11 +16,6 @@ public class ParkingSpaceRepository : IParkingSpaceRepository
     {
         return await _db.ParkingSpaces
             .AsNoTracking()
-            .Include(s => s.Id)
-            .Include(s => s.Number)
-            .Include(s => s.Building)
-            .Include(s => s.Available)
-            .Include(s => s.Floor)
             .Include(s => s.Car!)
             .ToListAsync();
     }
