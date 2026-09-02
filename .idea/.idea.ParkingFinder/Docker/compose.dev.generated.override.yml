@@ -2,37 +2,19 @@
 services:
   parkingfinderbackend:
     build:
-      context: "C:\\Users\\Bulat\\RiderProjects\\ParkingFinder"
+      context: "C:\\Users\\sizuchka\\IdeaProjects\\ParkingFinder"
       dockerfile: "ParkingFinder/Dockerfile"
       target: "base"
-      args:
-        BUILD_CONFIGURATION: "Debug"
     command: []
     entrypoint:
-    - "/opt/JetBrains/RiderDebuggerTools/linux-x64/JetBrains.Debugger.Worker"
-    - "--runtimeconfig"
-    - "/opt/JetBrains/RiderDebuggerTools/JetBrains.Debugger.Worker.runtimeconfig.json"
-    - "--mode=server"
-    - "--frontend-port=57000"
-    - "--backend-port=57200"
-    - "--roslyn-worker-port=57406"
-    - "--timeout=60"
+    - "dotnet"
+    - "/app/bin/Debug/net10.0/ParkingFinder.dll"
     environment:
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
-      RIDER_DEBUGGER_LOG_DIR: "/var/opt/JetBrains/RiderDebuggerTools"
-      RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     image: "parkingfinderbackend:dev"
-    ports:
-    - "127.0.0.1:57006:57000"
-    - "127.0.0.1:57206:57200"
-    - "127.0.0.1:57406:57406"
+    ports: []
     volumes:
-    - "C:\\Users\\Bulat\\RiderProjects\\ParkingFinder\\ParkingFinder:/app:rw"
-    - "C:\\Users\\Bulat\\RiderProjects\\ParkingFinder:/src:rw"
-    - "C:\\Users\\Bulat\\.nuget\\packages:/home/app/.nuget/packages"
-    - "C:\\Users\\Bulat\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2026.2\\\
-      Linux64:/opt/JetBrains/RiderDebuggerTools"
-    - "C:\\Users\\Bulat\\AppData\\Local\\Programs\\Rider\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
-    - "C:\\Users\\Bulat\\AppData\\Local\\JetBrains\\Rider2026.2\\log\\DebuggerWorker\\\
-      JetBrains.Debugger.Worker.2026_8_25_22_15_30:/var/opt/JetBrains/RiderDebuggerTools:rw"
+    - "C:\\Users\\sizuchka\\IdeaProjects\\ParkingFinder\\ParkingFinder:/app:rw"
+    - "C:\\Users\\sizuchka\\IdeaProjects\\ParkingFinder:/src:rw"
+    - "C:\\Users\\sizuchka\\.nuget\\packages:/home/app/.nuget/packages"
     working_dir: "/app"

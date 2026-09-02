@@ -8,6 +8,7 @@ namespace ParkingFinder.Endpoints;
 
 public class ParkingSpacesInfo : IEndpointGroup
 {
+    public static string RoutePrefix => "/api"; 
     public static void Map(RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet("/parking-spaces", GetAllParkingSpaces);
