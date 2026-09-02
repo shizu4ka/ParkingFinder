@@ -4,6 +4,11 @@ using ParkingFinder.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<RouteOptions>(options => 
+{
+    options.LowercaseUrls = true; 
+});
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -22,6 +27,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+    {
+        //Added Swagger for test
+        options.SwaggerEndpoint("/openapi/v1.json", "ParkingFinder API v1");
+    });
 }
 
 app.UseHttpsRedirection();

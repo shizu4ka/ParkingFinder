@@ -12,10 +12,20 @@ public class ParkingSpacesInfo : IEndpointGroup
     public static void Map(RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet("/parking-spaces", GetAllParkingSpaces);
+        
+        groupBuilder.MapPost("/parking-spaces", CreateParkingSpace);
     }
     public static async Task<Ok<IReadOnlyList<Parking_space>>> GetAllParkingSpaces([FromServices] IParkingSpaceRepository repository)
     {
         var spaces = await repository.GetAllParkingSpacesAsync();
         return TypedResults.Ok(spaces);
+    }
+
+    public static async Task<Created<Parking_space>> CreateParkingSpace(
+        [FromBody] Parking_space parkingSpace,
+        [FromServices] IParkingSpaceRepository repository)
+    {
+        await repository.AddNewParkingSpace(parkingSpace);
+        return TypedResults.Created($"/api/parking-spaces/{parkingSpace.Id}", parkingSpace);
     }
 }

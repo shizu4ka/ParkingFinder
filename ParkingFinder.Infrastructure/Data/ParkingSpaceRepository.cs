@@ -28,8 +28,17 @@ public class ParkingSpaceRepository : IParkingSpaceRepository
 
     public async Task AddNewParkingSpace(Parking_space parking_space)
     {
-        throw new NotImplementedException();
-        //TODO
+        var newSpace = new Parking_space
+        {
+        Id =  parking_space.Id,
+        Number =  parking_space.Number,
+        Building = parking_space.Building,
+        Available =  parking_space.Available,
+        Floor =  parking_space.Floor,
+        Car =  parking_space.Car
+        };
+        await _db.ParkingSpaces.AddAsync(newSpace);
+        await _db.SaveChangesAsync();
     }
 
     public Task UpdateParkingSpace(Parking_space parking_space)
