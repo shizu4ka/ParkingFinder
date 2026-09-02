@@ -30,21 +30,32 @@ public class ParkingSpaceRepository : IParkingSpaceRepository
     {
         var newSpace = new Parking_space
         {
-        Id =  parking_space.Id,
-        Number =  parking_space.Number,
-        Building = parking_space.Building,
-        Available =  parking_space.Available,
-        Floor =  parking_space.Floor,
-        Car =  parking_space.Car
+            Id = parking_space.Id,
+            Number = parking_space.Number,
+            Building = parking_space.Building,
+            Available = parking_space.Available,
+            Floor = parking_space.Floor,
+            Car = parking_space.Car
         };
         await _db.ParkingSpaces.AddAsync(newSpace);
         await _db.SaveChangesAsync();
     }
 
-    public Task UpdateParkingSpace(Parking_space parking_space)
+    //TODO do exception handling
+    public async Task<bool> UpdateParkingSpace(Guid Id, Parking_space parking_space)
     {
-        throw new NotImplementedException();
-        //TODO
+        var newSpace = _db.ParkingSpaces.Find(Id);
+        
+        if (newSpace == null) return false; 
+        
+        newSpace.Number = parking_space.Number;
+        newSpace.Building = parking_space.Building;
+        newSpace.Available = parking_space.Available;
+        newSpace.Floor = parking_space.Floor;
+        newSpace.Car = parking_space.Car;
+        
+        await _db.SaveChangesAsync();
+        return true;
     }
 
     public Task DeleteParkingSpace(Parking_space parking_space)
