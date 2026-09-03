@@ -58,9 +58,12 @@ public class ParkingSpaceRepository : IParkingSpaceRepository
         return true;
     }
 
-    public Task DeleteParkingSpace(Parking_space parking_space)
+    public async Task<bool> DeleteParkingSpace(Guid Id)
     {
-        throw new NotImplementedException();
-        //TODO
+        var space = await _db.ParkingSpaces.FindAsync(Id);
+        if (space == null) return false;
+        _db.ParkingSpaces.Remove(space);
+        await _db.SaveChangesAsync();
+        return true;
     }
 }

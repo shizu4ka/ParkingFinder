@@ -14,6 +14,7 @@ public class ParkingSpacesInfo : IEndpointGroup
         groupBuilder.MapGet("/parking-spaces", GetAllParkingSpaces);
         groupBuilder.MapPost("/parking-spaces", CreateParkingSpace);
         groupBuilder.MapPut("/parking-spaces", UpdateParkingSpace);
+        groupBuilder.MapDelete("/parking-spaces", DeleteParkingSpace);
     }
     public static async Task<Ok<IReadOnlyList<Parking_space>>> GetAllParkingSpaces([FromServices] IParkingSpaceRepository repository)
     {
@@ -36,5 +37,13 @@ public class ParkingSpacesInfo : IEndpointGroup
     {
         await repository.UpdateParkingSpace(id, parkingSpace);
         return TypedResults.Ok(parkingSpace);
+    }
+    
+    public static async Task<Results<Ok, NotFound>> DeleteParkingSpace(
+        Guid id,
+        [FromServices] IParkingSpaceRepository repository)
+    {
+        await repository.DeleteParkingSpace(id);
+        return TypedResults.Ok();
     }
 }

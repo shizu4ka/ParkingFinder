@@ -15,7 +15,7 @@ services:
     - "--mode=server"
     - "--frontend-port=57000"
     - "--backend-port=57200"
-    - "--roslyn-worker-port=57401"
+    - "--roslyn-worker-port=57402"
     - "--timeout=60"
     environment:
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
@@ -23,9 +23,9 @@ services:
       RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     image: "parkingfinderbackend:dev"
     ports:
-    - "127.0.0.1:57001:57000"
-    - "127.0.0.1:57201:57200"
-    - "127.0.0.1:57401:57401"
+    - "127.0.0.1:57002:57000"
+    - "127.0.0.1:57202:57200"
+    - "127.0.0.1:57402:57402"
     volumes:
     - "C:\\Users\\sizuchka\\IdeaProjects\\ParkingFinder\\ParkingFinder:/app:rw"
     - "C:\\Users\\sizuchka\\IdeaProjects\\ParkingFinder:/src:rw"
@@ -34,5 +34,5 @@ services:
       Linux64:/opt/JetBrains/RiderDebuggerTools"
     - "C:\\Users\\sizuchka\\AppData\\Local\\Programs\\Rider\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     - "C:\\Users\\sizuchka\\AppData\\Local\\JetBrains\\Rider2026.1\\log\\DebuggerWorker\\\
-      JetBrains.Debugger.Worker.2026_9_02_23_38_19:/var/opt/JetBrains/RiderDebuggerTools:rw"
+      JetBrains.Debugger.Worker.2026_9_03_14_00_10:/var/opt/JetBrains/RiderDebuggerTools:rw"
     working_dir: "/app"
