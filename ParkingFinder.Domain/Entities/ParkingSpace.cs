@@ -7,5 +7,5 @@ public class Parking_space
     public string Building {get; set;}
     public bool Available { get; set; }
     public int Floor {  get; set; }
-    public Car? Car {get; set;}
+    public Guid? CarId {get; set;}
 }

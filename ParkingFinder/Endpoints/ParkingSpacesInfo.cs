@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using ParkingFinder.Domain.DTOs;
 using ParkingFinder.Domain.Entities;
 using ParkingFinder.Infrastructure;
-using ParkingFinder.Infrastructure.Data;
 
 namespace ParkingFinder.Endpoints;
 
@@ -15,6 +15,7 @@ public class ParkingSpacesInfo : IEndpointGroup
         groupBuilder.MapPost("/parking-spaces", CreateParkingSpace);
         groupBuilder.MapPut("/parking-spaces", UpdateParkingSpace);
         groupBuilder.MapDelete("/parking-spaces", DeleteParkingSpace);
+        groupBuilder.MapGet("/parking-spaces/filter", GetParkingSpacesByFilters);
     }
     public static async Task<Ok<IReadOnlyList<Parking_space>>> GetAllParkingSpaces([FromServices] IParkingSpaceRepository repository)
     {
@@ -45,5 +46,13 @@ public class ParkingSpacesInfo : IEndpointGroup
     {
         await repository.DeleteParkingSpace(id);
         return TypedResults.Ok();
+    }
+
+    public static async Task<Ok<IReadOnlyList<Parking_space>>> GetParkingSpacesByFilters(
+        [AsParameters] ParkingSpacesFilters filters,
+        [FromServices] IParkingSpaceRepository repository)
+    {
+        var spaces = await repository.GetParkingSpacesByFiltersAsync(filters);
+        return TypedResults.Ok(spaces);
     }
 }
