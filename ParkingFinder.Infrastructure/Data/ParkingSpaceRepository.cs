@@ -91,10 +91,9 @@ public class ParkingSpaceRepository : IParkingSpaceRepository
 
     public async Task<bool> DeleteParkingSpace(Guid Id)
     {
-        var space = await _db.ParkingSpaces.FindAsync(Id);
-        if (space == null) return false;
-        _db.ParkingSpaces.Remove(space);
-        await _db.SaveChangesAsync();
+        await _db.ParkingSpaces
+            .Where(p => p.Id == Id)
+            .ExecuteDeleteAsync();
         return true;
     }
 }
