@@ -24,34 +24,34 @@ public class ParkingSpaceRepository : IParkingSpaceRepository
         ParkingSpacesFilters parkingSpacesFilters)
     {
         IQueryable<Parking_space> query = _db.ParkingSpaces;
-        if (parkingSpacesFilters.ParkingSpacesFilterId.HasValue)
+        if (parkingSpacesFilters.Id.HasValue)
         {
-            query = query.Where(p => p.Id == parkingSpacesFilters.ParkingSpacesFilterId.Value);
+            query = query.Where(p => p.Id == parkingSpacesFilters.Id.Value);
         }
 
-        if (parkingSpacesFilters.ParkingSpacesFilterNumber.HasValue)
+        if (parkingSpacesFilters.Number.HasValue)
         {
-            query = query.Where(p => p.Number == parkingSpacesFilters.ParkingSpacesFilterNumber);
+            query = query.Where(p => p.Number == parkingSpacesFilters.Number);
         }
 
-        if (parkingSpacesFilters.ParkingSpacesFilterBuilding != null)
+        if (parkingSpacesFilters.Building != null)
         {
-            query = query.Where(p => p.Building == parkingSpacesFilters.ParkingSpacesFilterBuilding);
+            query = query.Where(p => p.Building == parkingSpacesFilters.Building);
         }
 
-        if (parkingSpacesFilters.ParkingSpacesFilterAvailable.HasValue)
+        if (parkingSpacesFilters.Available.HasValue)
         {
-            query = query.Where(p => p.Available == parkingSpacesFilters.ParkingSpacesFilterAvailable.Value);
+            query = query.Where(p => p.Available == parkingSpacesFilters.Available.Value);
         }
 
-        if (parkingSpacesFilters.ParkingSpacesFilterFloor.HasValue)
+        if (parkingSpacesFilters.Floor.HasValue)
         {
-            query = query.Where(p => p.Floor == parkingSpacesFilters.ParkingSpacesFilterFloor.Value);
+            query = query.Where(p => p.Floor == parkingSpacesFilters.Floor.Value);
         }
 
-        if (parkingSpacesFilters.ParkingSpacesFilterCarId.HasValue)
+        if (parkingSpacesFilters.CarId.HasValue)
         {
-            query = query.Where(p => p.CarId == parkingSpacesFilters.ParkingSpacesFilterCarId.Value);
+            query = query.Where(p => p.CarId == parkingSpacesFilters.CarId.Value);
         }
 
         return await query.ToListAsync();
