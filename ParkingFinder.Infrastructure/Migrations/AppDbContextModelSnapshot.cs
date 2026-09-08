@@ -74,6 +74,32 @@ namespace ParkingFinder.Infrastructure.Migrations
                     b.ToTable("ParkingSpaces");
                 });
 
+            modelBuilder.Entity("ParkingFinder.Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("ParkingFinder.Domain.Entities.Parking_space", b =>
                 {
                     b.HasOne("ParkingFinder.Domain.Entities.Car", "Car")
