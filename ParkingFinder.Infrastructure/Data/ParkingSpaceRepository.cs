@@ -84,7 +84,7 @@ public class ParkingSpaceRepository : IParkingSpaceRepository
         newSpace.Available = parking_space.Available;
         newSpace.Floor = parking_space.Floor;
         newSpace.CarId = parking_space.CarId;
-
+        _db.ParkingSpaces.Update(newSpace);
         await _db.SaveChangesAsync();
         return true;
     }
