@@ -69,8 +69,6 @@ namespace ParkingFinder.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId");
-
                     b.ToTable("ParkingSpaces");
                 });
 
@@ -80,7 +78,7 @@ namespace ParkingFinder.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CarId")
+                    b.Property<Guid?>("CarId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
@@ -98,15 +96,6 @@ namespace ParkingFinder.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ParkingFinder.Domain.Entities.Parking_space", b =>
-                {
-                    b.HasOne("ParkingFinder.Domain.Entities.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId");
-
-                    b.Navigation("Car");
                 });
 #pragma warning restore 612, 618
         }

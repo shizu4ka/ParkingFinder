@@ -49,6 +49,7 @@ public class UserRepository : IUserRepository
         {
             query = query.Where(u => u.CarId == usersFilters.CarId);
         }
+
         return await query.ToListAsync();
     }
 

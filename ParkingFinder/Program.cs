@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ParkingFinder.Domain.Interfaces;
 using ParkingFinder.Infrastructure;
 using ParkingFinder.Infrastructure.Data;
 
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         b => b.MigrationsAssembly("ParkingFinder.Infrastructure")));
 
 builder.Services.AddScoped<IParkingSpaceRepository, ParkingSpaceRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
